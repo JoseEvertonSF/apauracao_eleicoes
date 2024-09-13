@@ -7,12 +7,14 @@
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <!-- App favicon -->
         <link rel="shortcut icon" href="assets/images/favicon.ico">
         <!-- App css -->
         <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        @vite(["resources/js/app.js"])
     </head>
     <body>
         <!-- Begin page -->
@@ -52,7 +54,7 @@
                                                 </div>
                                             </div>
                                             <div class="ml-auto mr-auto mt-2 text-center">
-                                                <h1>{{number_format($candidato['votos']['porcentagem'], 2, ',', '.').'%'}}</h1>
+                                                <h1 id="{{'total-'.$candidato['numero']}}">{{number_format($candidato['votos']['porcentagem'], 2, ',', '.').'%'}}</h1>
                                                 <h5>{{number_format($candidato['votos']['quantidade'], 0, '', '.')}} votos</h5>
                                                 <div class="m-auto">
                                                     @if($candidato['matEleito'] == 'E')
@@ -131,5 +133,13 @@
         <!-- App js -->
         <script src="assets/js/app.min.js"></script>
         <script src="assets/js/filtro.js"></script>
+        <script src="assets/js/app.js"></script>
+        <script type="module">
+            window.Echo.channel("Apuracao.Votos")
+                .listen('ApuracaoVotos', (e) => {
+                    candidato = document.getElementById('total-22');
+                    candidato.innerText = '1';
+            })
+        </script>
     </body>
 </html>
