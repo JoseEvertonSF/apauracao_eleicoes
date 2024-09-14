@@ -8,7 +8,7 @@ class Vereadores {
 
     public static function getCandidatos()
     {   
-        $url = 'https://gdp-oficial-apuracao.s3.amazonaws.com/apuracao/json2020-1turno/pe/escada/vereador.json';
+        $url = 'https://s.glbimg.com/jo/el/2024/apuracao/1-turno/pe/semantica.globo.com/base/Cidade_Escada_PE/vereador.json';
         $candidatosVereadores = Http::get($url)->json();
         return $candidatosVereadores;
     }

@@ -31,6 +31,6 @@ class ApuracaoVotos extends Command
         $candidatosPrefeitos = Prefeitos::getCandidatos();
         $candidatosVereadores = Vereadores::getCandidatos();
         $dados = ['executivo' => $candidatosPrefeitos, 'vereador' => $candidatosVereadores];
-        VotosApuradosEvent::dispatch();
+        VotosApuradosEvent::dispatch($dados);
     }
 }

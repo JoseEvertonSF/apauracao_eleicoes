@@ -43,18 +43,18 @@
                         </div>
                         <div class="row col-md-12 col-xl-12 m-auto">
                             @foreach($executivo['candidatos'] as $candidato)
-                                <div class="col-md-4">
+                                <div class="col-md-4" id="{{$candidato['numero']}}">
                                     <div class="card">
                                         <div class="card-body row mb-0">
                                             <div class="text-center m-auto">
-                                                <img class="col-md-12" src="{{$candidato['foto']}}"/>
+                                                <img class="col-md-12" src="{{$fotos[$candidato['numero']]}}"/>
                                                 <div class="mt-2">
                                                     <p class="m-0"><strong>{{$candidato['nome']}}</strong></p>
                                                     <span>({{$candidato['partido']}})</span>                                                   
                                                 </div>
                                             </div>
                                             <div class="ml-auto mr-auto mt-2 text-center">
-                                                <h1 id="{{'total-'.$candidato['numero']}}">{{number_format($candidato['votos']['porcentagem'], 2, ',', '.').'%'}}</h1>
+                                                <h1 id="{{'total-'.$candidato['numero']}}">{{$candidato['votos']['porcentagem'].'%'}}</h1>
                                                 <h5>{{number_format($candidato['votos']['quantidade'], 0, '', '.')}} votos</h5>
                                                 <div class="m-auto">
                                                     @if($candidato['matEleito'] == 'E')
@@ -79,20 +79,20 @@
                             </div>
                         </div>
                         <div class="row col-md-12 col-xl-12 m-auto" id="candidatos">
-                            @foreach($vereador as $candidato)
-                                <div class="col-md-4 cards-container">
-                                    <div class="card" id="{{$candidato['numeroCandidato']}}">
+                            @foreach($vereador['candidatos'] as $candidato)
+                                <div class="col-md-4 cards-container" id="{{$candidato['numero']}}">
+                                    <div class="card">
                                         <div class="card-body row mb-0">
                                             <div class="col-md-5 mt-4">
                                                 <div class="text-center">
-                                                    <span class="m-0 nome" style="font-weight: 700">{{$candidato['nomeUrnaCandidato']}}</span>
-                                                    <span>({{$candidato['siglaPartido']}})</span> 
-                                                    <span class="numero">{{$candidato['numeroCandidato']}}</span>                                                   
+                                                    <span class="m-0 nome" style="font-weight: 700">{{$candidato['nome']}}</span>
+                                                    <span>({{$candidato['partido']}})</span> 
+                                                    <span class="numero">{{$candidato['numero']}}</span>                                                   
                                                 </div>
                                             </div>
                                             <div class="ml-auto mr-auto text-center col-md-4">
-                                                <h4>{{$candidato['percentualVotos'] !== '00.00' ? $candidato['percentualVotos'].'%' : '0,00'}}</h4>
-                                                <h6>{{number_format($candidato['totalVotos'], 0, '', '.')}} votos</h6>
+                                                <h4>{{$candidato['votos']['porcentagem'].'%'}}</h4>
+                                                <h6>{{number_format($candidato['votos']['quantidade'], 0, '', '.')}} votos</h6>
                                                 <div class="m-auto">
                                                     @if($candidato['eleito'] == 's')
                                                         <span class="badge badge-success">ELEITO</span>

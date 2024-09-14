@@ -14,9 +14,12 @@ class VotosApuradosEvent implements ShouldBroadcast
     /**
      * Create a new event instance.
      */
-    public function __construct()
+
+     public $atualizacoes;
+     
+    public function __construct($atualizacoes)
     {
-        /* $this->atualizacoes = $atualizacoes; */
+        $this->atualizacoes = $atualizacoes;
     }
 
     /**
@@ -31,8 +34,8 @@ class VotosApuradosEvent implements ShouldBroadcast
         ];
     }
 
-   /*  public function broadcastWith(): array
+    public function broadcastWith(): array
     {
         return ['atualizacoes' => $this->atualizacoes];
-    } */
+    }
 }
