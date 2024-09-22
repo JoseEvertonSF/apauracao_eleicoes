@@ -28,9 +28,9 @@ class VotosApuradosEvent implements ShouldBroadcast
      * @return array<int, \Illuminate\Broadcasting\Channel>
      */
     public function broadcastOn(): array
-    {
+    {   
         return [
-            new Channel('Apuracao.Votos'),
+            new Channel('apuracao')
         ];
     }
 

@@ -13,4 +13,4 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-Broadcast::channel('Apuracao.Votos', fn (): bool => true);
+Broadcast::channel('apuracao', fn (): bool => true);

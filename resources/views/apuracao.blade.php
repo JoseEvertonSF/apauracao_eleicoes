@@ -80,7 +80,7 @@
                         </div>
                         <div class="row col-md-12 col-xl-12 m-auto" id="candidatos">
                             @foreach($vereador['candidatos'] as $candidato)
-                                <div class="col-md-4 cards-container" id="{{$candidato['numero']}}">
+                                <div class="col-md-4 cards-container" id="{{'candidato-'.$candidato['numero']}}">
                                     <div class="card">
                                         <div class="card-body row mb-0">
                                             <div class="col-md-5 mt-4">
@@ -92,7 +92,7 @@
                                             </div>
                                             <div class="ml-auto mr-auto text-center col-md-4">
                                                 <h4>{{$candidato['votos']['porcentagem'].'%'}}</h4>
-                                                <h6>{{number_format($candidato['votos']['quantidade'], 0, '', '.')}} votos</h6>
+                                                <h6 class="qtde-votos">{{number_format($candidato['votos']['quantidade'], 0, '', '.')}} votos</h6>
                                                 <div class="m-auto">
                                                     @if($candidato['eleito'] == 's')
                                                         <span class="badge badge-success">ELEITO</span>
@@ -135,10 +135,9 @@
         <script src="assets/js/filtro.js"></script>
         <script src="assets/js/app.js"></script>
         <script type="module">
-            window.Echo.channel("Apuracao.Votos")
-                .listen('ApuracaoVotos', (e) => {
-                    candidato = document.getElementById('total-22');
-                    candidato.innerText = '1';
+            window.Echo.channel('apuracao')
+                .listen('VotosApuradosEvent', (e) => {
+                    console.log(e);
             })
         </script>
     </body>
