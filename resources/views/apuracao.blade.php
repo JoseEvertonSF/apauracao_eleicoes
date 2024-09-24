@@ -37,13 +37,51 @@
                     <div class="container-fluid col-md-8">
                         <div class="row page-title">
                             <div class="col-md-12 mt-5">
-                                <h4 class="mb-1 mt-5">Candidatos a prefeito</h4>
+                                <h4 class="mb-1 mt-5">Informações</h4>
+                                <hr/>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <label>Andamento</label>
+                                        <h1>{{$executivo['abrangencia']['andamento']}}</h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <label>Seções Totalizadas</label>
+                                        <h1>{{$executivo['abrangencia']['secoesTotalizadas'].' / '.$executivo['abrangencia']['secoes']}}</h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <label>Votos Apurados</label>
+                                        <h1>{{$executivo['abrangencia']['votos']['apurados']['quantidade'].' / '.$executivo['abrangencia']['eleitores']}}</h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <label>Votos em branco</label>
+                                        <h1>{{$executivo['abrangencia']['votos']['brancos']['quantidade']}}</h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row page-title">
+                            <div class="col-md-12">
+                                <h4 class="mb-1">Candidatos a prefeito</h4>
                                 <hr/>
                             </div>
                         </div>
                         <div class="row col-md-12 col-xl-12 m-auto">
                             @foreach($executivo['candidatos'] as $candidato)
-                                <div class="col-md-4" id="{{$candidato['numero']}}">
+                                <div class="col-md-4" id="candidato-{{$candidato['numero']}}">
                                     <div class="card">
                                         <div class="card-body row mb-0">
                                             <div class="text-center m-auto">
@@ -54,8 +92,8 @@
                                                 </div>
                                             </div>
                                             <div class="ml-auto mr-auto mt-2 text-center">
-                                                <h1 id="{{'total-'.$candidato['numero']}}">{{$candidato['votos']['porcentagem'].'%'}}</h1>
-                                                <h5>{{number_format($candidato['votos']['quantidade'], 0, '', '.')}} votos</h5>
+                                                <h1 id="{{'percent-'.$candidato['numero']}}">{{$candidato['votos']['porcentagem'].'%'}}</h1>
+                                                <h5 id="{{'total-'.$candidato['numero']}}">{{number_format($candidato['votos']['quantidade'], 0, '', '.')}} votos</h5>
                                                 <div class="m-auto">
                                                     @if($candidato['matEleito'] == 'E')
                                                         <span class="badge badge-success p-2">ELEITO</span>
@@ -136,8 +174,18 @@
         <script src="assets/js/app.js"></script>
         <script type="module">
             window.Echo.channel('apuracao')
-                .listen('VotosApuradosEvent', (e) => {
-                    console.log(e);
+                .listen('VotosApuradosEvent', (response) => {
+                    console.log(response);
+
+                    response.atualizacoes.executivo.forEach(function(candidato, key){
+                        $('#candidato-'+candidato.numero).css('order', candidato.classificacao)
+                        $('#total-'+candidato.numero).html(candidato.votos.quantidade)
+                    })
+
+                    response.atualizacoes.vereador.forEach(function(candidato, key){
+                        $('#candidato-'+candidato.numero).css('order', candidato.classificacao)
+                        $('#total-'+candidato.numero).html(candidato.votos.quantidade)
+                    })
             })
         </script>
     </body>

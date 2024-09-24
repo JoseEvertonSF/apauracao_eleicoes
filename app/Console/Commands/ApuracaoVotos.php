@@ -28,9 +28,9 @@ class ApuracaoVotos extends Command
      */
     public function handle()
     {
-        $candidatosPrefeitos = Prefeitos::getCandidatos();
-        $candidatosVereadores = Vereadores::getCandidatos();
-        $dados = ['executivo' => $candidatosPrefeitos, 'vereador' => $candidatosVereadores];
-        VotosApuradosEvent::dispatch($dados['executivo']);
+        list($infoGerais, $candidatosPrefeitos) = Prefeitos::getAtualizacao();
+        $candidatosVereadores = Vereadores::getAtualizacao();
+        $atualizacao = ['infoGerais' => $infoGerais, 'executivo' => $candidatosPrefeitos, 'vereador' => $candidatosVereadores];
+        VotosApuradosEvent::dispatch($atualizacao['executivo']);
     }
 }

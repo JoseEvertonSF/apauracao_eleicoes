@@ -12,4 +12,24 @@ class Vereadores {
         $candidatosVereadores = Http::get($url)->json();
         return $candidatosVereadores;
     }
+
+    public static function getAtualizacao(): array
+    {
+        $dadosAtualizacoes = Vereadores::getCandidatos();
+        $atualizacoesPrefeito = [];
+        foreach($dadosAtualizacoes['candidatos'] as $candidato)
+        {
+            $atualizacoesPrefeito[] = [
+                'numero' => $candidato['numero'],'eleito' => $candidato['eleito'],
+                'posicao' => $candidato['posicao'],
+                'votos' => [
+                    'porcentagem' => $candidato['votos']['porcentagem'],
+                    'quantidade' => $candidato['votos']['quantidade'],
+                ]
+            ];
+        }
+
+        return $atualizacoesPrefeito;
+        
+    }
 }
