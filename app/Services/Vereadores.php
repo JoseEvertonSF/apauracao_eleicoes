@@ -20,7 +20,8 @@ class Vereadores {
         foreach($dadosAtualizacoes['candidatos'] as $candidato)
         {
             $atualizacoesPrefeito[] = [
-                'numero' => $candidato['numero'],'eleito' => $candidato['eleito'],
+                'numero' => $candidato['numero'],
+                'eleito' => $candidato['eleito'],
                 'posicao' => $candidato['posicao'],
                 'votos' => [
                     'porcentagem' => $candidato['votos']['porcentagem'],

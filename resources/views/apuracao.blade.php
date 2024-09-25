@@ -94,7 +94,7 @@
                                             <div class="ml-auto mr-auto mt-2 text-center">
                                                 <h1 id="{{'percent-'.$candidato['numero']}}">{{$candidato['votos']['porcentagem'].'%'}}</h1>
                                                 <h5 id="{{'total-'.$candidato['numero']}}">{{number_format($candidato['votos']['quantidade'], 0, '', '.')}} votos</h5>
-                                                <div class="m-auto">
+                                                <div class="m-auto" id={{"status-".$candidato['numero']}}>
                                                     @if($candidato['matEleito'] == 'E')
                                                         <span class="badge badge-success p-2">ELEITO</span>
                                                     @else
@@ -129,9 +129,9 @@
                                                 </div>
                                             </div>
                                             <div class="ml-auto mr-auto text-center col-md-4">
-                                                <h4>{{$candidato['votos']['porcentagem'].'%'}}</h4>
-                                                <h6 class="qtde-votos">{{number_format($candidato['votos']['quantidade'], 0, '', '.')}} votos</h6>
-                                                <div class="m-auto">
+                                                <h4 id="{{'percent-'.$candidato['numero']}}">{{$candidato['votos']['porcentagem'].'%'}}</h4>
+                                                <h6 id="{{'total-'.$candidato['numero']}}">{{number_format($candidato['votos']['quantidade'], 0, '', '.')}} votos</h6>
+                                                <div class="m-auto" id={{"status-".$candidato['numero']}}>
                                                     @if($candidato['eleito'] == 's')
                                                         <span class="badge badge-success">ELEITO</span>
                                                     @else
@@ -173,18 +173,35 @@
         <script src="assets/js/filtro.js"></script>
         <script src="assets/js/app.js"></script>
         <script type="module">
-            window.Echo.channel('apuracao')
-                .listen('VotosApuradosEvent', (response) => {
-                    console.log(response);
+            window.Echo.channel('apuracao').listen('VotosApuradosEvent', (response) => {
 
                     response.atualizacoes.executivo.forEach(function(candidato, key){
-                        $('#candidato-'+candidato.numero).css('order', candidato.classificacao)
-                        $('#total-'+candidato.numero).html(candidato.votos.quantidade)
+                        let percentVotos = candidato.votos.porcentagem + '%';
+                        let qtdeVotos = candidato.votos.quantidade + ' votos';
+                        let eleito = candidato.eleito;
+                        let matEleito = candidato.matEleito;
+                        $('#candidato-'+candidato.numero).css('order', candidato.classificacao);
+                        $('#total-'+candidato.numero).html(qtdeVotos);
+                        $('#percent-'+candidato.numero).html(percentVotos);
+                        if(eleito === 'S' || matEleito === 'S')
+                        {
+                            let eleitoElemento = '<span class="badge p-2 badge-success">ELEITO</span>';
+                            $('#status-'+candidato.numero).html(eleitoElemento);
+                        }
                     })
 
                     response.atualizacoes.vereador.forEach(function(candidato, key){
-                        $('#candidato-'+candidato.numero).css('order', candidato.classificacao)
-                        $('#total-'+candidato.numero).html(candidato.votos.quantidade)
+                        let percentVotos = candidato.votos.porcentagem + '%'
+                        let qtdeVotos = candidato.votos.quantidade + ' votos';
+                        let eleito = candidato.eleito;
+                        $('#candidato-'+ candidato.numero).css('order', candidato.posicao)
+                        $('#total-'+ candidato.numero).html(qtdeVotos)
+                        $('#percent-'+candidato.numero).html(percentVotos);
+                        if(eleito == 'S')
+                        {
+                            let eleitoElemento = '<span class="badge badge-success">ELEITO</span>';
+                            $('#status-'+candidato.numero).html(eleitoElemento);
+                        }
                     })
             })
         </script>
