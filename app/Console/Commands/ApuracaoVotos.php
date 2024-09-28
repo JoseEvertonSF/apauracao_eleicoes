@@ -31,6 +31,6 @@ class ApuracaoVotos extends Command
         list($infoGerais, $candidatosPrefeitos) = Prefeitos::getAtualizacao();
         $candidatosVereadores = Vereadores::getAtualizacao();
         $atualizacao = ['infoGerais' => $infoGerais, 'executivo' => $candidatosPrefeitos, 'vereador' => $candidatosVereadores];
-        VotosApuradosEvent::dispatch($atualizacao);
+        VotosApuradosEvent::dispatch('oi');
     }
 }
