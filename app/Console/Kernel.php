@@ -12,7 +12,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->command('apuracao-votos')->everyMinute();
+        $schedule->command('app:apuracao-votos')->everyMinute();
     }
 
     /**
