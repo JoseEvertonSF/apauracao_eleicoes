@@ -35,7 +35,8 @@ class VotosApuradosEvent implements ShouldBroadcast
     }
 
     public function broadcastWith(): array
-    {
+    {   
+        dd(['atualizacoes' => $this->atualizacoes]);
         return ['atualizacoes' => $this->atualizacoes];
     }
 }
