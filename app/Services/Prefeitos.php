@@ -29,7 +29,7 @@ class Prefeitos {
         {
             $atualizacoesPrefeito[] = [
                 'numero' => $candidato['numero'],
-                'eleito' => $candidato['eleito'],
+                'eleito' => 'S'/* $candidato['eleito'] */,
                 'matEleito' => $candidato['matEleito'], 
                 'classificacao' => $candidato['classificacao'],
                 'votos' => [

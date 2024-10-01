@@ -29,7 +29,6 @@ class VotosApuradosEvent implements ShouldBroadcast
      */
     public function broadcastOn(): array
     {   
-        dd('oi');
         return [
             new Channel('apuracao')
         ];
