@@ -26,11 +26,11 @@ class ApuracaoVotos extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle()    
     {
         list($infoGerais, $candidatosPrefeitos) = Prefeitos::getAtualizacao();
         $candidatosVereadores = Vereadores::getAtualizacao();
         $atualizacao = ['infoGerais' => $infoGerais, 'executivo' => $candidatosPrefeitos, 'vereador' => $candidatosVereadores];
-        VotosApuradosEvent::dispatch('oi');
+        VotosApuradosEvent::dispatch($atualizacao);
     }
 }
