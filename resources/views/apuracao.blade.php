@@ -174,7 +174,6 @@
         <script src="assets/js/app.js"></script>
         <script type="module">
             window.Echo.channel('apuracao').listen('VotosApuradosEvent', (response) => {
-                    console.log(response);
                     response.atualizacoes.executivo.forEach(function(candidato, key){
                         let percentVotos = candidato.votos.porcentagem + '%';
                         let qtdeVotos = candidato.votos.quantidade + ' votos';
