@@ -19,7 +19,7 @@ class Prefeitos {
 
         $atualizacoesGerais = [
             'andamento' => $dadosAtualizacoes['abrangencia']['andamento'], 
-            'secoes' => [$dadosAtualizacoes['abrangencia']['secoes'], $dadosAtualizacoes['abrangencia']['secoesTotalizadas']], 
+            'secoes' => [$dadosAtualizacoes['abrangencia']['secoesTotalizadas'], $dadosAtualizacoes['abrangencia']['secoes']], 
             'votosApurados' => [$dadosAtualizacoes['abrangencia']['votos']['apurados']['quantidade'], $dadosAtualizacoes['abrangencia']['eleitores']], 
             'votosBranco' => $dadosAtualizacoes['abrangencia']['votos']['brancos']['quantidade']
         ];

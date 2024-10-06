@@ -44,7 +44,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <label>Andamento</label>
-                                        <h1>{{$executivo['abrangencia']['andamento']}}</h1>
+                                        <h1 id="andamento">{{$executivo['abrangencia']['andamento']}}</h1>
                                     </div>
                                 </div>
                             </div>
@@ -52,7 +52,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <label>Seções Totalizadas</label>
-                                        <h1>{{$executivo['abrangencia']['secoesTotalizadas'].' / '.$executivo['abrangencia']['secoes']}}</h1>
+                                        <h1 id="secoes">{{$executivo['abrangencia']['secoesTotalizadas'].' / '.$executivo['abrangencia']['secoes']}}</h1>
                                     </div>
                                 </div>
                             </div>
@@ -60,7 +60,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <label>Votos Apurados</label>
-                                        <h1>{{$executivo['abrangencia']['votos']['apurados']['quantidade'].' / '.$executivo['abrangencia']['eleitores']}}</h1>
+                                        <h1 id="votosApurados">{{$executivo['abrangencia']['votos']['apurados']['quantidade'].' / '.$executivo['abrangencia']['eleitores']}}</h1>
                                     </div>
                                 </div>
                             </div>
@@ -68,7 +68,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <label>Votos em branco</label>
-                                        <h1>{{$executivo['abrangencia']['votos']['brancos']['quantidade']}}</h1>
+                                        <h1 id="votosEmBranco">{{$executivo['abrangencia']['votos']['brancos']['quantidade']}}</h1>
                                     </div>
                                 </div>
                             </div>
@@ -174,6 +174,14 @@
         <script src="assets/js/app.js"></script>
         <script type="module">
             window.Echo.channel('apuracao').listen('VotosApuradosEvent', (response) => {
+                    var andamento = response.atualizacoes.infoGerais.andamento;
+                    var secoes = response.atualizacoes.infoGerais.secoes;
+                    var votosApurados = response.atualizacoes.infoGerais.votosApurados;
+                    var votosBrancos = response.atualizacoes.infoGerais.votosBrancos;
+                    $('#andamento').text(andamento);
+                    $('#secoes').text(`${secoes[0]} / ${secoes[1]}`);
+                    $('#votosApurados').text(`${votosApurados[0]} / ${votosApurados[1]}`);
+                    $('#votosBranco').text(`${votosBrancos}`);
                     response.atualizacoes.executivo.forEach(function(candidato, key){
                         let percentVotos = candidato.votos.porcentagem + '%';
                         let qtdeVotos = candidato.votos.quantidade + ' votos';
